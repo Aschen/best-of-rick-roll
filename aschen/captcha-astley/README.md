@@ -1,4 +1,4 @@
-# The Tech Insider bot check
+# Captcha Astley
 
 A link that looks like a European tech news article. It opens on a "Just a moment..." bot check, and clicking "I'm not a robot" starts Rick Astley. Live at [tech-insider.eu](https://tech-insider.eu/a/8f3k2x).
 
