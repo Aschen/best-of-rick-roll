@@ -497,7 +497,9 @@
           el.querySelector("canvas").getContext("2d"),
         );
 
+        const t0 = Date.now();
         (function animate() {
+          const t = (Date.now() - t0) / 1000;
           if (main.videoWidth) {
             const s = Math.max(W / main.videoWidth, H / main.videoHeight);
             const sw = W / s,
@@ -514,9 +516,6 @@
           );
           const pulse =
             main.currentTime < FIRST_BEAT ? 0 : Math.exp(-6 * (beat % 1));
-          // The formation covers one beat's worth of motion in the first quarter of each beat, then holds until the next one.
-          const step = Math.floor(beat) + smooth(clamp01((beat % 1) * 4));
-          const t = (step * 60) / BPM;
           main.style.opacity = String(0.35 + 0.2 * pulse);
           wins.forEach((el, i) => {
             const [x, y] = position(i, N, t);

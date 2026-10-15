@@ -1,4 +1,4 @@
-# Captcha Astley
+# Captcha Multi Astley
 
 A link that looks like a European tech news article. It opens on a "Just a moment..." bot check, and clicking "I'm not a robot" starts Rick Astley. Live at [tech-insider.eu](https://tech-insider.eu/a/8f3k2x).
 
@@ -34,7 +34,7 @@ The video is not in the repo: `index.html` plays `https://aschen.ovh/proverbe.mp
 - The video plays **unmuted** in the background, dimmed to 35% opacity.
 - Five floating mini windows, macOS-style title bar with traffic lights and a neon glow, each rendering the live video into a `<canvas>`.
 - The windows dance through five formations — orbit, figure-eight snake chase, wave, implode/explode star, DVD-logo bounce — morphing smoothly from one to the next every 7 seconds.
-- **Beat-synced** at 113.34 BPM, first beat at 0.365 s, measured on the audio track by onset detection. On every beat the windows snap to their next position, pop, tilt and flash, and the background pulses. The animation follows `video.currentTime`, so it stays in sync even if playback stalls.
+- **Beat-synced** at 113.34 BPM, first beat at 0.365 s, measured on the audio track by onset detection. The windows glide continuously, and on every beat they pop, tilt and flash while the background pulses. The beat follows `video.currentTime`, so it stays in sync even if playback stalls.
 - After 30 seconds, a link to this repo slides in at the bottom right.
 
 ### 4. The trap: making it hard to leave
@@ -53,7 +53,6 @@ The video is not in the repo: `index.html` plays `https://aschen.ovh/proverbe.mp
 - **Firefox and Safari**: no Keyboard Lock, so one press of Escape exits fullscreen.
 - **Mobile**: closing a tab never shows a confirmation, and nothing can stop it.
 - **Chrome**: history entries pushed without a user gesture are skipped by the Back button, so the Back trap is only armed from clicks.
-- When the video loops back to the start, the windows jump back to their opening formation.
 
 ## Deploy
 

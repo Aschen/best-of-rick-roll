@@ -18,6 +18,6 @@ Keep it a prank: the punchline is Rick Astley. No malware, no collecting credent
 
 ## Rickrolls
 
-| Rickroll                                 | Author                               | Disguise                                          |
-| ---------------------------------------- | ------------------------------------ | ------------------------------------------------- |
-| [Captcha Astley](aschen/captcha-astley/) | [@Aschen](https://github.com/Aschen) | A tech news link that lands on a "bot check" page |
+| Rickroll                                             | Author                               | Disguise                                          |
+| ---------------------------------------------------- | ------------------------------------ | ------------------------------------------------- |
+| [Captcha Multi Astley](aschen/captcha-multi-astley/) | [@Aschen](https://github.com/Aschen) | A tech news link that lands on a "bot check" page |
