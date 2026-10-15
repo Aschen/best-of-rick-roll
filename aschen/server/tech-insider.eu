@@ -1,0 +1,35 @@
+server {
+	listen 80;
+	server_name tech-insider.eu www.tech-insider.eu;
+
+	include snippets/letsencrypt.conf;
+
+	location / {
+		return 301 https://tech-insider.eu$request_uri;
+	}
+}
+
+server {
+	listen 443 ssl http2;
+	server_name tech-insider.eu www.tech-insider.eu;
+
+	error_log /var/apps/tech-insider.eu/log/error.log;
+	access_log /var/apps/tech-insider.eu/log/access.log;
+
+	ssl_certificate /etc/letsencrypt/live/tech-insider.eu/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/tech-insider.eu/privkey.pem;
+
+	include snippets/ssl-params.conf;
+	include snippets/letsencrypt.conf;
+
+	root /var/apps/tech-insider.eu/public;
+
+	location = /og.png {
+		try_files /og.png =404;
+	}
+
+	# Every path serves the same page and keeps the URL in the address bar.
+	location / {
+		try_files /index.html =404;
+	}
+}

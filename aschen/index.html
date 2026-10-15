@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Just a moment...</title>
+    <meta name="description" content="Tech Insider — European tech news." />
+    <link rel="canonical" href="https://tech-insider.eu/a/8f3k2x" />
+
+    <meta
+      name="robots"
+      content="index, follow, nosnippet, max-image-preview:none"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tech Insider" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Tech Insider" />
+    <meta property="og:description" content="European tech news." />
+    <meta property="og:url" content="https://tech-insider.eu/a/8f3k2x" />
+    <meta property="og:image" content="https://tech-insider.eu/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Tech Insider" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@techinsider_eu" />
+    <style>
+      :root {
+        --bg: #0d0d14;
+        --fg: #f4f1ea;
+        --muted: #9a97a8;
+        --accent: #ff4d6d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        background: radial-gradient(
+          ellipse at 30% 20%,
+          #23203a 0%,
+          var(--bg) 60%
+        );
+        color: var(--fg);
+        font-family: system-ui, sans-serif;
+      }
+
+      #gate {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        background: #fff;
+        color: #313131;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        transition: opacity 0.15s ease;
+      }
+      #gate.gone {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #gate main {
+        flex: 1;
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 12vh 16px 0;
+      }
+      #gate h1 {
+        font-size: 2.4rem;
+        font-weight: 500;
+        margin: 0 0 0.6rem;
+        word-break: break-all;
+      }
+      #gate h2 {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin: 0 0 2rem;
+      }
+      #gate p {
+        line-height: 1.5;
+        margin: 1.6rem 0 0;
+      }
+
+      .captcha {
+        width: 304px;
+        max-width: 100%;
+        height: 78px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 12px;
+        background: #f9f9f9;
+        border: 1px solid #d3d3d3;
+        border-radius: 3px;
+        box-shadow: 0 0 4px 1px rgb(0 0 0 / 0.08);
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+      .box {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        position: relative;
+        background: #fff;
+        border: 2px solid #c1c1c1;
+        border-radius: 2px;
+        transition: border-color 0.15s;
+      }
+      .captcha:hover .box {
+        border-color: #b2b2b2;
+        box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.1);
+      }
+      .captcha:focus-visible {
+        outline: 2px solid #4a90e2;
+        outline-offset: 2px;
+      }
+      .checked .box {
+        border-color: transparent;
+        background: transparent;
+      }
+      .checked .box::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: -2px;
+        width: 10px;
+        height: 22px;
+        border: solid #009e55;
+        border-width: 0 4px 4px 0;
+        transform: rotate(45deg);
+      }
+      .captcha .label {
+        flex: 1;
+        font-size: 14px;
+      }
+      .captcha .brand {
+        flex: none;
+        width: 58px;
+        text-align: center;
+        font-size: 8px;
+        color: #555;
+        line-height: 1.4;
+      }
+      .captcha .brand svg {
+        display: block;
+        margin: 0 auto 2px;
+      }
+
+      #gate footer {
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 16px;
+        border-top: 1px solid #d9d9d9;
+        font-size: 0.75rem;
+        text-align: center;
+        color: #555;
+      }
+
+      #leave {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: rgb(0 0 0 / 0.25);
+      }
+      #leave.open {
+        display: flex;
+      }
+      #leave .dialog {
+        width: 380px;
+        max-width: 100%;
+        padding: 20px 22px 18px;
+        background: #f7f6fb;
+        color: #15141a;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgb(0 0 0 / 0.35);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      #leave .origin {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 15px;
+      }
+      #leave p {
+        margin: 16px 0 20px;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+      #leave .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      #leave button {
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 9px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        border: 1.5px solid #7b5bd6;
+        background: transparent;
+        color: #15141a;
+      }
+      #leave button.primary {
+        background: #7b5bd6;
+        color: #fff;
+      }
+
+      #main {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.35;
+      }
+
+      .win {
+        position: fixed;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #000;
+        box-shadow:
+          0 0 0 1px hsl(var(--h) 90% 65% / 0.8),
+          0 0 28px hsl(var(--h) 90% 60% / 0.55),
+          0 20px 40px -10px #000;
+        will-change: transform;
+        pointer-events: none;
+      }
+      .win .bar {
+        height: 22px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        padding: 0 8px;
+        background: linear-gradient(#3a3a46, #2a2a33);
+      }
+      .win .bar i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ff5f57;
+      }
+      .win .bar i:nth-child(2) {
+        background: #febc2e;
+      }
+      .win .bar i:nth-child(3) {
+        background: #28c840;
+      }
+      .win canvas {
+        display: block;
+        width: 100%;
+        height: calc(100% - 22px);
+      }
+
+      #credit {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 5;
+        max-width: calc(100% - 32px);
+        display: none;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: rgb(13 13 20 / 0.85);
+        border: 1px solid var(--accent);
+        color: var(--fg);
+        font-size: 14px;
+        text-decoration: none;
+        box-shadow: 0 0 24px rgb(255 77 109 / 0.45);
+        animation: credit-in 0.6s ease;
+      }
+      #credit.show {
+        display: block;
+      }
+      #credit b {
+        color: var(--accent);
+      }
+      @keyframes credit-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      id="main"
+      src="https://aschen.ovh/proverbe.mp4"
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+
+    <div id="gate">
+      <main>
+        <h1 id="host"></h1>
+        <h2>Checking if the site connection is secure</h2>
+        <button class="captcha" id="verify" type="button" autofocus>
+          <span class="box"></span>
+          <span class="label">I'm not a robot</span>
+          <span class="brand">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              stroke="#4a90e2"
+              stroke-width="3"
+              stroke-linecap="round"
+            >
+              <path d="M26 16a10 10 0 0 1-17.3 6.8" />
+              <path d="M6 16A10 10 0 0 1 23.3 9.2" />
+              <path d="M23.5 3.5v6h-6" stroke="#4a90e2" />
+              <path d="M8.5 28.5v-6h6" stroke="#9aa0a6" />
+            </svg>
+            Privacy - Terms
+          </span>
+        </button>
+        <p>
+          Click to enter the website if you are not a robot.<br />This site
+          needs to review the security of your connection before proceeding.
+        </p>
+      </main>
+      <footer>
+        Verification ID: <code id="rid"></code> · Performance &amp; security
+      </footer>
+    </div>
+
+    <div
+      id="leave"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="leave-msg"
+    >
+      <div class="dialog">
+        <div class="origin">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+          </svg>
+          <span id="leave-host"></span>
+        </div>
+        <p id="leave-msg">
+          Are you sure you want to stop being rickrolled? Rick is never gonna
+          give you up, never gonna let you down.
+        </p>
+        <div class="actions">
+          <button type="button" data-close>Leave the page</button>
+          <button type="button" class="primary" data-close>
+            Stay on the page
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <a
+      id="credit"
+      href="https://github.com/Aschen/best-of-rick-roll"
+      target="_blank"
+      rel="noopener"
+      >Still here? Steal this rickroll or add yours:
+      <b>github.com/Aschen/best-of-rick-roll</b></a
+    >
+
+    <script>
+      const N = 5;
+      const W = 360,
+        H = 203;
+      const DPR = Math.min(2, devicePixelRatio || 1);
+      // Measured on proverbe.mp4's audio track by onset detection; animation follows main.currentTime so it stays in sync after seeks.
+      const BPM = 113.34,
+        FIRST_BEAT = 0.365;
+
+      // Choreography: every SEG seconds the formation morphs into the next pattern over BLEND seconds.
+      const TAU = Math.PI * 2;
+      const SEG = 7,
+        BLEND = 1.6,
+        INTRO = 1.2;
+      const smooth = (k) => k * k * (3 - 2 * k);
+      const clamp01 = (v) => Math.min(1, Math.max(0, v));
+      const tri = (v) => 1 - Math.abs((((v % 2) + 2) % 2) - 1);
+
+      const PATTERNS = [
+        // orbit
+        (i, n, t) => {
+          const a = t * 0.9 + (i * TAU) / n;
+          return [0.5 + 0.45 * Math.cos(a), 0.5 + 0.45 * Math.sin(a)];
+        },
+        // figure-eight snake chase
+        (i, n, t) => {
+          const p = t * 0.8 - i * 0.5;
+          return [0.5 + 0.48 * Math.sin(p), 0.5 + 0.45 * Math.sin(2 * p)];
+        },
+        // wave
+        (i, n, t) => [
+          n === 1 ? 0.5 : i / (n - 1),
+          0.5 + 0.48 * Math.sin(t * 2.4 + i * 0.9),
+        ],
+        // implode / explode star
+        (i, n, t) => {
+          const r = 0.5 * Math.abs(Math.sin(t * 1.4));
+          const a = (i * TAU) / n + t * 0.5;
+          return [0.5 + r * Math.cos(a), 0.5 + r * Math.sin(a)];
+        },
+        // DVD bounce
+        (i, n, t) => [tri(t * 0.4 + i * 0.37), tri(t * 0.55 + i * 0.61)],
+      ];
+
+      function position(i, n, t) {
+        const idx = Math.floor(t / SEG) % PATTERNS.length;
+        const local = t % SEG;
+        let [x, y] = PATTERNS[idx](i, n, t);
+        if (local > SEG - BLEND) {
+          const [x2, y2] = PATTERNS[(idx + 1) % PATTERNS.length](i, n, t);
+          const k = smooth((local - (SEG - BLEND)) / BLEND);
+          x += (x2 - x) * k;
+          y += (y2 - y) * k;
+        }
+        if (t < INTRO) {
+          const k = smooth(t / INTRO);
+          x = 0.5 + (x - 0.5) * k;
+          y = 0.5 + (y - 0.5) * k;
+        }
+        return [clamp01(x), clamp01(y)];
+      }
+
+      const main = document.getElementById("main");
+      const gate = document.getElementById("gate");
+      const verify = document.getElementById("verify");
+
+      // Embedded in an iframe, the visitor sees the top-level page's host, not the frame's.
+      const ancestors = location.ancestorOrigins;
+      const topOrigin =
+        ancestors && ancestors.length
+          ? ancestors[ancestors.length - 1]
+          : location.origin;
+      const host = topOrigin.startsWith("http")
+        ? new URL(topOrigin).host
+        : "localhost";
+      document.getElementById("host").textContent = host;
+      document.getElementById("leave-host").textContent = host;
+      document.getElementById("rid").textContent = Array.from(
+        crypto.getRandomValues(new Uint8Array(8)),
+        (b) => b.toString(16).padStart(2, "0"),
+      ).join("");
+
+      function launch() {
+        setTimeout(
+          () => document.getElementById("credit").classList.add("show"),
+          30_000,
+        );
+        const wins = [];
+        for (let i = 0; i < N; i++) {
+          const el = document.createElement("div");
+          el.className = "win";
+          el.style.width = `${W}px`;
+          el.style.height = `${H + 22}px`;
+          el.style.setProperty("--h", String(((i * 360) / N + 330) % 360));
+          el.innerHTML = `<div class="bar"><i></i><i></i><i></i></div><canvas width="${W * DPR}" height="${H * DPR}"></canvas>`;
+          document.body.appendChild(el);
+          wins.push(el);
+        }
+        const ctxs = wins.map((el) =>
+          el.querySelector("canvas").getContext("2d"),
+        );
+
+        (function animate() {
+          if (main.videoWidth) {
+            const s = Math.max(W / main.videoWidth, H / main.videoHeight);
+            const sw = W / s,
+              sh = H / s;
+            const sx = (main.videoWidth - sw) / 2,
+              sy = (main.videoHeight - sh) / 2;
+            ctxs.forEach((ctx) =>
+              ctx.drawImage(main, sx, sy, sw, sh, 0, 0, W * DPR, H * DPR),
+            );
+          }
+          const beat = Math.max(
+            0,
+            ((main.currentTime - FIRST_BEAT) * BPM) / 60,
+          );
+          const pulse =
+            main.currentTime < FIRST_BEAT ? 0 : Math.exp(-6 * (beat % 1));
+          // The formation covers one beat's worth of motion in the first quarter of each beat, then holds until the next one.
+          const step = Math.floor(beat) + smooth(clamp01((beat % 1) * 4));
+          const t = (step * 60) / BPM;
+          main.style.opacity = String(0.35 + 0.2 * pulse);
+          wins.forEach((el, i) => {
+            const [x, y] = position(i, N, t);
+            const w = Math.min(el.offsetWidth, innerWidth);
+            const h = el.offsetHeight;
+            const rot = (i % 2 ? -6 : 6) * Math.sin(Math.PI * beat);
+            el.style.transform = `translate(${x * (innerWidth - w)}px, ${y * (innerHeight - h) - 14 * pulse}px) rotate(${rot}deg) scale(${1 + 0.12 * pulse})`;
+            el.style.filter = `brightness(${1 + 0.5 * pulse})`;
+          });
+          requestAnimationFrame(animate);
+        })();
+      }
+
+      // play() must run synchronously inside the click: unmuted playback requires a transient user activation.
+      verify.addEventListener(
+        "click",
+        () => {
+          main.muted = false;
+          main.play();
+          verify.classList.add("checked");
+          launch();
+          armBackTrap();
+          goFullscreen();
+          hijackMediaControls();
+          gate.classList.add("gone");
+        },
+        { once: true },
+      );
+
+      // Media keys, lock screen and OS media widgets go through the Media Session: every "stop" action restarts the song.
+      function hijackMediaControls() {
+        main.addEventListener("pause", () => main.play());
+        if (!("mediaSession" in navigator)) return;
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: "Never Gonna Give You Up",
+          artist: "Rick Astley",
+          album: "Whenever You Need Somebody",
+          artwork: [
+            {
+              src: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+              sizes: "480x360",
+              type: "image/jpeg",
+            },
+          ],
+        });
+        const restart = () => {
+          main.currentTime = 0;
+          main.play();
+        };
+        const actions = {
+          play: () => main.play(),
+          pause: () => main.play(),
+          stop: restart,
+          previoustrack: restart,
+          nexttrack: restart,
+          seekbackward: restart,
+          seekforward: restart,
+          seekto: restart,
+        };
+        for (const [action, handler] of Object.entries(actions)) {
+          try {
+            navigator.mediaSession.setActionHandler(action, handler);
+          } catch {}
+        }
+      }
+
+      // Keyboard Lock only applies while fullscreen: Escape then has to be held 2s to exit (Chromium only).
+      function goFullscreen() {
+        const root = document.documentElement;
+        const request = root.requestFullscreen || root.webkitRequestFullscreen;
+        if (
+          !request ||
+          document.fullscreenElement ||
+          document.webkitFullscreenElement
+        )
+          return;
+        Promise.resolve(request.call(root))
+          .then(() => navigator.keyboard && navigator.keyboard.lock())
+          .catch(() => {});
+      }
+
+      // Chrome skips history entries pushed without a user activation, so entries are only pushed from click handlers.
+      const leave = document.getElementById("leave");
+      function armBackTrap() {
+        for (let i = 0; i < 3; i++)
+          history.pushState({ trap: true }, "", location.href);
+      }
+      addEventListener("popstate", () => {
+        history.pushState({ trap: true }, "", location.href);
+        leave.classList.add("open");
+        leave.querySelector(".primary").focus();
+      });
+      leave.querySelectorAll("[data-close]").forEach((btn) =>
+        btn.addEventListener("click", () => {
+          leave.classList.remove("open");
+          armBackTrap();
+          main.play();
+          goFullscreen();
+        }),
+      );
+
+      // The leave prompt only shows once the page has received a user gesture (sticky activation).
+      addEventListener("beforeunload", (e) => {
+        e.preventDefault();
+        e.returnValue = "";
+      });
+    </script>
+  </body>
+</html>

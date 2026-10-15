@@ -1,0 +1,6 @@
+server {
+	listen 80;
+	server_name tech-insider.eu www.tech-insider.eu;
+
+	include snippets/letsencrypt.conf;
+}
